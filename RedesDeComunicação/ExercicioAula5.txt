@@ -1,0 +1,18 @@
+Atividade 1:
+1) Categoria 6A, pois aguentaria 1Gbps com folga.
+2)
+UTP - cabos sem blindagem, mais baratos.
+STP - cabos com algum tipo de blindagem.
+O custo extra da blindagem se justifica quando a "falha" do cabo for muito prejudicial ao funcionamento geral.
+3) Pois ele permite "reaproveitar" o conector RJ11 em um RJ45.
+4) Pois pode acabar danificando o isolamento e alterando o desempenho do cabo.
+
+Atividade 2:
+1) 139 canais uteis ([890-54]/6).
+2) Por conta da sua velocidade e necessidade de repetidores frequentes.
+3) Rede de cameras de segurança e instrumentos de medição.
+
+Atividade 3:
+1) Por conta de eles poderem sofre interferencias/incompatibilidade.
+2) Pois ele pode separar sinais de voz e dados em diferenetes bandas.
+3) Pois o RJ11 utiliza um outro padrao fisico que nao é igual ao RJ45, mas esta contido nele, porem necessita seguir os padroes corretos.

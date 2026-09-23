@@ -1,0 +1,15 @@
+Atividade 1:
+
+1) 250Mhz.
+2) OM3 (1500MHz km) e OM4 (3500MHz km) atendem, porem OM3 seria a melhor custo beneficio.
+3) Por cont da dispersão que acontece em maior intensidade conforme o tamanho do núcleo aumenta.
+4) Menor atenuação por espalhamento de Rayleigh.
+5) Fornecer resistencia a tração, por conta da fragilidade das fibras de vidro.
+
+Atividade 2:
+
+1) 1000Base-SX, por suportar a distancia de 550m sem necessidade de repetidores e oferecer imunidade a interfeencias eletromagnéticas.
+2) Não, a tecnologia adequada seria a Fibramonomodo (SMF) 10GBase-LR, que suporta enlaces de até 10km.
+3) Por conta principalmente do seu custo elevado e alta complexidade, alem de que a tecnologia Ethernet eliminou as colisões de dados e manteve a simplicidade do protocolo.
+4) Taxa de transmissão e largura de banda necessaria, alcance geografico, custo e disponibilidade no mercado.
+5) Cabeamento de alta qualidade permite que o protocolo seja mais simples e direto, pois o meio fisico introduz pouco ruido, atenuacao ou interferencia. Enquanto no cabeamento de baixa qualidade ou meios ruidosos exigem protocolos extremamente complexos para compensar as deficiencias e limitacoes do meio fisico.
