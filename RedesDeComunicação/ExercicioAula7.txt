@@ -1,0 +1,40 @@
+Atividade 1:
+1)
+Vantagens:maior mobilidade dos dispositivos e menor custo de instalação.
+Desvantagens: obstruções e condições meteorologicas afetam a qualidade do sinal, alem de que a depender do uso, compartilhar o mesmo meio com muitos dispositivos pode ser inseguro.
+2) Por conta de ser uma estrutura fixa de estações radio-base, dando uma maior e melhor cobertura aos dispositivos
+3) Pois o uso do dispositivo faz mais sentido com esse tipo de abordagem (conexão Bluetooth)
+4)
+P1 = 10log10(P[100])
+P1 = 10log10(10²)
+P1 = 10x2 
+P1 = 20
+
+P2 = 10log10(P[2,5])
+P2 = 10log10(5/2)
+P2 = 10 x [1 - 2 (0,3)]
+P2 = 10 x [1 - 0,6]
+P2 = 10 x 0,4
+P2 = aprox 4
+
+P3 = 10log10(P[1])
+P3 = 10log10(1)
+P3 = 10 x 0
+P3 = 0
+
+Diferença entre as Classes 1 e 3 são de 20dB
+5) A faixa e a frequencia utilizadas
+
+Atividade 2:
+1) Canais 1,6 e 11. Pois eles nao se sobrepoem
+2) Canal 1 em uma frequencia por volta de -40 dBm
+3)
+4)
+5)
+
+Atividade 4:
+1)
+2)
+3)
+4)
+5)
