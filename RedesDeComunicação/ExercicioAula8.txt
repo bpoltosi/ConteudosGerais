@@ -1,0 +1,7 @@
+1 Qual a diferença entre endereço físico e endereço lógico? Por que ambos são necessários, em vez de apenas um
+deles?
+2 Por que o endereço MAC não é suficiente para a comunicação entre duas redes distintas?
+3 O que é um domínio de broadcast e o que delimita suas fronteiras?
+4 No quadro do slide anterior, o MAC de destino é FF-FF-FF-FF-FF-FF e o IP de destino é 192.168.1.255. Por que
+são necessários dois endereços de broadcast, um em cada camada?
+5 Qual a função do endereçamento por portas? Por que se diz que ele aponta “para dentro”?
