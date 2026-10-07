@@ -1,7 +1,46 @@
-1 Qual a diferença entre endereço físico e endereço lógico? Por que ambos são necessários, em vez de apenas um
-deles?
-2 Por que o endereço MAC não é suficiente para a comunicação entre duas redes distintas?
-3 O que é um domínio de broadcast e o que delimita suas fronteiras?
-4 No quadro do slide anterior, o MAC de destino é FF-FF-FF-FF-FF-FF e o IP de destino é 192.168.1.255. Por que
-são necessários dois endereços de broadcast, um em cada camada?
-5 Qual a função do endereçamento por portas? Por que se diz que ele aponta “para dentro”?
+Atividade 1: analisar 2 e 4
+1) Qual a diferença entre endereço físico e endereço lógico? Por que ambos são necessários, em vez de apenas um deles?
+R: Endereçamento físico identifica o dispositivo dentro da rede local, não a rede em si, e nesse ponto de vista, todos os dispositivos são diretamente acessíveis.
+Enquanto o lógico identifica a rede física e também o dispositivo, sendo roteado entre redes diferentes e necessário para a funcionalidade da camada de rede, para que o pacote “circule” para fora da LAN.
+
+2) Por que o endereço MAC não é suficiente para a comunicação entre duas redes distintas?
+R: Porque ele é local, ou seja, ele identifica apenas a placa de rede no seu segmento físico atual e não possui nenhuma informação de hierarquia ou localização.
+
+Para que os dados viajem entre redes diferentes, é obrigatório o uso de um endereço lógico (como o IP), que possui estrutura de rede/host e permite que os roteadores saibam exatamente para onde encaminhar os pacotes.
+
+3) O que é um domínio de broadcast e o que delimita suas fronteiras?
+R: Broadcast é um caso específico de multicast em que se incluem todos os usuários da rede como destino.
+O domínio é limitado/bloqueado por roteadores ou por redes locais virtuais (VLANs) — é isso que impede que um broadcast local se propague pela internet inteira.
+
+4) No quadro do slide anterior, o MAC de destino é FF-FF-FF-FF-FF-FF e o IP de destino é 192.168.1.255. Por que são necessários dois endereços de broadcast, um em cada camada?
+R: O IP de destino (Camada Lógica) define o grupo de rede que deve receber a mensagem.
+MAC de destino (Camada Física) dá a ordem para o hardware (switches e placas de rede) espalhar fisicamente essa mensagem para todos os aparelhos conectados no mesmo cabo ou Wi-Fi.
+
+5) Qual a função do endereçamento por portas? Por que se diz que ele aponta “para dentro”?
+R: Identificar o processo (o software dentro do computador) de origem e de destino para um determinado pacote TCP ou UDP.
+A porta serve para, já tendo chegado, decidir a qual dos programas em execução entregar aquele pacote. 
+Sem ela, o sistema operacional receberia os dados sem saber se pertencem ao navegador, ao cliente de e-mail ou a um jogo.
+
+Atividade 2:
+1) Um endereço IPv4 tem 32 bits. Mostre por que isso resulta em cerca de 4 bilhões de endereços. Quantos endereços tem o IPv6?
+R:
+2) Classifique cada endereço como público ou privado: 10.5.3.1, 172.20.0.5, 192.168.0.1, 172.32.1.1 e 8.8.8.8.
+R:
+3) Escreva 2001:0DB8:0000:0000:0000:0000:F0CA:84C1 na sua forma abreviada.
+R:
+4) Responda à “questão de prova” do slide anterior: como pode o ipconfig mostrar 192.168.2.14 enquanto um site externo informa um endereço completamente diferente?
+R:
+5) Cite três novidades do IPv6 em relação ao IPv4 e explique brevemente o problema que cada uma resolve.
+R:
+
+Atividade 3:
+1 Os hosts 192.168.10.50 e 192.168.10.200, com máscara /24, estão na mesma sub-rede? Mostre a operação em binário.
+R:
+2) Repita o exercício anterior com máscara /25 (255.255.255.128). O resultado muda? Explique o que isso revela sobre o papel da máscara.
+R:
+3) Um host 192.168.1.10/24 quer enviar um pacote para 10.0.0.5. Descreva o que acontece e diga quais endereços (MAC e IP, de origem e destino) vão no quadro transmitido.
+R:
+4) Por que o IP de destino não muda quando o pacote é enviado ao gateway, mas o MAC de destino muda?
+R:
+5) O que significa a notação /24 e como ela se relaciona com 255.255.255.0?
+R:
