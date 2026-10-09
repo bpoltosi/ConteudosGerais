@@ -1,4 +1,4 @@
-Atividade 1: analisar 2 e 4
+Atividade 1:
 1) Qual a diferença entre endereço físico e endereço lógico? Por que ambos são necessários, em vez de apenas um deles?
 R: Endereçamento físico identifica o dispositivo dentro da rede local, não a rede em si, e nesse ponto de vista, todos os dispositivos são diretamente acessíveis.
 Enquanto o lógico identifica a rede física e também o dispositivo, sendo roteado entre redes diferentes e necessário para a funcionalidade da camada de rede, para que o pacote “circule” para fora da LAN.
@@ -12,35 +12,92 @@ Para que os dados viajem entre redes diferentes, é obrigatório o uso de um end
 R: Broadcast é um caso específico de multicast em que se incluem todos os usuários da rede como destino.
 O domínio é limitado/bloqueado por roteadores ou por redes locais virtuais (VLANs) — é isso que impede que um broadcast local se propague pela internet inteira.
 
-4) No quadro do slide anterior, o MAC de destino é FF-FF-FF-FF-FF-FF e o IP de destino é 192.168.1.255. Por que são necessários dois endereços de broadcast, um em cada camada?
-R: O IP de destino (Camada Lógica) define o grupo de rede que deve receber a mensagem.
-MAC de destino (Camada Física) dá a ordem para o hardware (switches e placas de rede) espalhar fisicamente essa mensagem para todos os aparelhos conectados no mesmo cabo ou Wi-Fi.
+4) No quadro do slide anterior, o MAC de destino é FF-FF-FF-FF-FF-FF e o IP de destino é 192.168.1.255.
+Por que são necessários dois endereços de broadcast, um em cada camada?
+R:
+O IP de destino (Camada Lógica) define o grupo de rede que deve receber a mensagem.
+MAC de destino (Camada Física) dá a ordem para o hardware (switches e placas de rede) espalhar fisicamente
+essa mensagem para todos os aparelhos conectados no mesmo cabo ou Wi-Fi.
 
 5) Qual a função do endereçamento por portas? Por que se diz que ele aponta “para dentro”?
-R: Identificar o processo (o software dentro do computador) de origem e de destino para um determinado pacote TCP ou UDP.
-A porta serve para, já tendo chegado, decidir a qual dos programas em execução entregar aquele pacote. 
+R: 
+Identificar o processo (o software dentro do computador) de origem e de destino para um determinado pacote TCP ou UDP.
+A porta serve para, ja tendo chego, decidir a qual dos programas em execução entregar aquele pacote. 
 Sem ela, o sistema operacional receberia os dados sem saber se pertencem ao navegador, ao cliente de e-mail ou a um jogo.
 
 Atividade 2:
 1) Um endereço IPv4 tem 32 bits. Mostre por que isso resulta em cerca de 4 bilhões de endereços. Quantos endereços tem o IPv6?
-R:
+R: 
+IPV4 = 2^32
+IPV6 = 2^128
 2) Classifique cada endereço como público ou privado: 10.5.3.1, 172.20.0.5, 192.168.0.1, 172.32.1.1 e 8.8.8.8.
-R:
+R: Respectivamente: Privado (classe A), Privado (classe B), Privado (classe C), Publico, Publico
 3) Escreva 2001:0DB8:0000:0000:0000:0000:F0CA:84C1 na sua forma abreviada.
-R:
+R: 2001:DB8::F0CA:84C1
 4) Responda à “questão de prova” do slide anterior: como pode o ipconfig mostrar 192.168.2.14 enquanto um site externo informa um endereço completamente diferente?
-R:
+R: Isso ocorre devido ao processo de NAT, executado pelo roteador/gateway
 5) Cite três novidades do IPv6 em relação ao IPv4 e explique brevemente o problema que cada uma resolve.
 R:
+Espaço de endereçamento de 128 bits, resolvendo o problema de esgotamento dos endereços IPv4.
+Autoconfiguração de endereço (SLAAC), resolvendo a dependência de configuração manual ou de servidores DHCP.
+Cabeçalho simplificado e endereçamento hierárquico, resolvendo a sobrecarga de processamento nos roteadores de núcleo.
 
 Atividade 3:
 1 Os hosts 192.168.10.50 e 192.168.10.200, com máscara /24, estão na mesma sub-rede? Mostre a operação em binário.
-R:
+R: Sim, estão na mesma sub-rede.
+
+11000000.10101000.00001010.00110010 (192.168.10.50)
+11111111.11111111.11111111.00000000 (Máscara /24)
+-------------------------------------
+11000000.10101000.00001010.00000000 => Rede: 192.168.10.0
+
+11000000.10101000.00001010.11001000 (192.168.10.200)
+11111111.11111111.11111111.00000000 (Máscara /24)
+-------------------------------------
+11000000.10101000.00001010.00000000 => Rede: 192.168.10.0
+
+192.168.10.0 == 192.168.10.0, verdadeiro => estão na mesma sub-rede
+
 2) Repita o exercício anterior com máscara /25 (255.255.255.128). O resultado muda? Explique o que isso revela sobre o papel da máscara.
 R:
+O resultado muda pois agora os hosts estão em sub-redes diferentes.
+A máscara de sub-rede define exatamente onde termina a identificacaoo da rede e onde começa a identificação do host.
+
+00110010
+10000000
+--------
+00000000 => Rede: 192.168.10.0
+
+11001000
+10000000
+--------
+10000000 => Rede: 192.168.10.128
+
+192.168.10.0 == 192.168.10.128, falso => estão em sub-redes diferentes
+
 3) Um host 192.168.1.10/24 quer enviar um pacote para 10.0.0.5. Descreva o que acontece e diga quais endereços (MAC e IP, de origem e destino) vão no quadro transmitido.
 R:
+O host faz o AND lógico entre sua máscara (255.255.255.0) e o destino (10.0.0.5), obtendo (10.0.0.0).
+Como (192.168.1.0 != 10.0.0.0), ele identifica que o destino está fora da sua sub-rede.
+O pacote precisa ser enviado ao gateway padrão (roteador) para ser roteado.
+
+IP de Origem: (192.168.1.10)
+IP de Destino: (10.0.0.5) (mantém o destinatário final)
+MAC de Origem: Endereço MAC da placa de rede do próprio host (192.168.1.10).
+MAC de Destino: Endereço MAC da interface do gateway/roteador.
+
 4) Por que o IP de destino não muda quando o pacote é enviado ao gateway, mas o MAC de destino muda?
-R:
+R: Porque o IP de destino é global e carrega a rota fim a fim de onde o pacote deve chegar,
+enquanto o MAC de destino é estritamente local e define quem é o próximo salto físico no enlace
+
 5) O que significa a notação /24 e como ela se relaciona com 255.255.255.0?
-R:
+R: 
+A notação representa a quantidade de bits contínuos com valor 1 na máscara de sub-rede, contados da esquerda para a direita.
+Em um endereço de 32 bits, ter 24 bits 1 significa que os três primeiros grupos de 8 bits (octetos) são formados exclusivamente por 1:
+11111111.11111111.11111111.00000000
+Convertendo cada octeto binário para a notação decimal:
+11111111_2 = 255
+11111111_2 = 255
+11111111_2 = 255
+00000000_2 = 0
+Portanto, (/24) e (255.255.255.0) representam exatamente a mesma máscara lógica.
