@@ -1,0 +1,94 @@
+Preparação:
+
+C:\Users\ctism202623077>ipconfig /all
+
+Endereço IP =
+   Endereço IPv6 . . . . . . . . . . : 2804:1f38:2001:c8::1027
+   Endereço IPv6 . . . . . . . . . . : 2804:1f38:2001:c8:d59:74b6:daaf:7ee3
+   Endereço IPv6 Temporário. . . . . . . . : 2804:1f38:2001:c8:15eb:7526:acd9:4d3f
+   Endereço IPv6 de link local . . . . . . . . : fe80::f8a3:bae5:47e9:d7fa%4
+   Endereço IPv4. . . . . . . .  . . . . . . . : 172.22.72.78
+
+Mascara de Sub-Rede = 255.255.255.0
+Gateway Padrao = fe80::14cb:8cff:fe7c:8078%4
+Servidor DNS = 2804:1f38:2001:a0::10
+               2804:1f38:2001:c8::1
+               172.22.34.2
+               172.22.72.1
+
+
+C:\Users\ctism202623077>arp -a
+
+Interface: 172.22.72.78 --- 0x4
+  Endereço IP           Endereço físico       Tipo
+  172.22.72.1           16-cb-8c-7c-80-78     dinâmico
+  172.22.72.51          f4-8e-38-fe-8e-ab     dinâmico
+  172.22.72.52          f4-8e-38-fe-8e-8f     dinâmico
+  172.22.72.61          f4-8e-38-fe-8e-7c     dinâmico
+  172.22.72.62          f4-8e-38-fe-8e-40     dinâmico
+  172.22.72.255         ff-ff-ff-ff-ff-ff     estático
+  224.0.0.22            01-00-5e-00-00-16     estático
+  224.0.0.251           01-00-5e-00-00-fb     estático
+  224.0.0.252           01-00-5e-00-00-fc     estático
+  239.255.255.250       01-00-5e-7f-ff-fa     estático
+  255.255.255.255       ff-ff-ff-ff-ff-ff     estático
+
+Texte 1: ping 172.22.72.1
+
+a) Observe os destinos dos pacotes ICMP Echo Request e Echo Reply. Houve resposta?
+R: sim, houve resposta
+
+b) Em caso afirmativo, quanto tempo levou a resposta?
+R: 0.0004 segundos
+
+c) Houve troca de pacotes ARP para resolução do endereço MAC? Justifique.
+R: Sim, para "reconhecimento"
+
+Teste 2: ping 172.22.72.2
+
+a) Como iniciou a transação? Qual protocolo apareceu primeiro na captura? 
+R: mandamos 12 'pedidos' de reconhecimento, via protocolo ARP.
+
+b) Houve sucesso na resposta do ping? Mostre os pacotes trocados e/ou respondidos.
+R: Não
+
+Teste 3: ping 192.168.1.1
+
+a) Houve resolução de endereço pelo protocolo ARP? Para qual endereço IP?
+R: não houve, para o 192.168.1.1
+
+b) Quais eram os endereços de destino na camada física (Ethernet/MAC) e na camada lógica (IP) do pacote enviado? 
+R: 
+IP = 192.168.1.1
+Ethernet/MAC = 16-cb-8c-7c-80-78
+
+c) Consultando a tabela ARP, a quem pertenciam os endereços indicados no item anterior? 
+R: 
+O endereço IP pertencia ao host de destino localizado na outra sub-rede.
+O endereço MAC pertencia ao Gateway Padrão da nossa rede (172.22.72.1), que atua como a saída obrigatória para o tráfego destinado a outras redes.
+
+d) Houve sucesso na resposta ao pacote?
+R: Não, os 4 foram perdidos
+
+Teste 4: ping www.ufsm.br
+
+a) Como iniciou a transação? Qual protocolo apareceu primeiro na captura? 
+R: Buscando o endereço IP do dominio, protocolo DNS
+
+b) Para qual endereço IP foi gerado o ping? 
+R: 2804:1f38:0:30::1950
+
+c) Como o computador "descobre" esse endereço? Identifique na captura os pacotes de consulta e resposta. 
+R: O computador descobre enviando um pacote de consulta DNS (Standard Query) direcionado ao Servidor DNS configurado no ipconfig (por exemplo, 2804:1f38:2001:a0::10 ou 172.22.34.2).
+O servidor responde com um pacote de resposta DNS (Standard Query Response) contendo o registro correspondente com o endereço IP de destino.
+
+d) Houve sucesso no teste? Em caso afirmativo, quanto tempo levou a resposta? 
+R: Sim, 1ms
+
+e) Examine todos os endereços conhecidos atualmente com o comando "ipconfig /displaydns" e comente o resultado.
+R: 
+Apareceu o cache DNS local do sistema operacional Windows e informações importantes (nome do registro, tempo de vida,comprimento dos dados,seção e registro).
+Ele lista todos os domínios recentemente acessados pelo computador (como sites, serviços de telemetria, APIs, etc.).
+
+Nome do registro, o tipo - A(ipv4) ou AAAA(IPv6).
+Tempo de vida restante (TTL) em segundos e o endereço IP associado a cada um, permitindo que o computador acesse esses endereços rapidamente sem precisar consultar um servidor DNS externo novamente de imediato.
