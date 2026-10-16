@@ -1,4 +1,6 @@
-Preparação:
+==================================================
+PREPARAÇÃO DO AMBIENTE
+==================================================
 
 C:\Users\ctism202623077>ipconfig /all
 
@@ -16,6 +18,7 @@ Servidor DNS = 2804:1f38:2001:a0::10
                172.22.34.2
                172.22.72.1
 
+==================================================
 
 C:\Users\ctism202623077>arp -a
 
@@ -33,62 +36,93 @@ Interface: 172.22.72.78 --- 0x4
   239.255.255.250       01-00-5e-7f-ff-fa     estático
   255.255.255.255       ff-ff-ff-ff-ff-ff     estático
 
-Texte 1: ping 172.22.72.1
+==================================================
+
+Teste 1 - comando "ping 172.22.72.1" (ping para o Gateway)
 
 a) Observe os destinos dos pacotes ICMP Echo Request e Echo Reply. Houve resposta?
-R: sim, houve resposta
+R: 
+Sim, houve resposta com 100% de sucesso.
+O pacote ICMP Echo Request teve como destino o IP do gateway padrão: 172.22.72.1.
+O pacote ICMP Echo Reply teve como destino o IP da nossa máquina local: 172.22.72.78.
 
 b) Em caso afirmativo, quanto tempo levou a resposta?
-R: 0.0004 segundos
+R: A resposta levou aproximadamente 0,0004 a 0,0005 segundos (cerca de 0,4ms a 0,5ms) na medição de pacotes do Wireshark, indicando um tempo < 1 ms no prompt de comando.
 
 c) Houve troca de pacotes ARP para resolução do endereço MAC? Justifique.
-R: Sim, para "reconhecimento"
+R: NÃO houve troca de pacotes ARP por parte do nosso computador.
+Justificativa: Como verificado previamente no comando "arp -a", o endereço MAC do gateway (16-cb-8c-7c-80-78) já estava armazenado no cache ARP da máquina local. Portanto, o sistema operacional reutilizou a entrada do cache diretamente, dispensando a emissão de um ARP Request.
+(Os pacotes ARP observados no Wireshark foram originados pelo próprio gateway em broadcast procurando outros hosts da rede, como 172.22.72.58 e .56).
 
-Teste 2: ping 172.22.72.2
+==================================================
+
+Teste 2 - comando "ping 172.22.72.2" (ping para o dispositivo desconhecido na mesma sub-rede)
 
 a) Como iniciou a transação? Qual protocolo apareceu primeiro na captura? 
-R: mandamos 12 'pedidos' de reconhecimento, via protocolo ARP.
+R: 
+A transação iniciou com o protocolo ARP.
+O nosso computador enviou pacotes "ARP Request" em broadcast para o endereço físico FF:FF:FF:FF:FF:FF, com a mensagem: "Who has 172.22.72.2? Tell 172.22.72.78".
 
 b) Houve sucesso na resposta do ping? Mostre os pacotes trocados e/ou respondidos.
-R: Não
+R: 
+Não houve sucesso.
+Como o IP 172.22.72.2 não existe ou não estava ativo no segmento de rede, nenhum dispositivo respondeu com um "ARP Reply". Sem obter o endereço MAC de destino correspondente, a placa de rede não conseguiu encapsular o quadro Ethernet, fazendo com que os pacotes ICMP Echo Request sequer chegassem a ser transmitidos pelo meio físico (resultando em "Esgotado o tempo limite do pedido").
 
-Teste 3: ping 192.168.1.1
+==================================================
+
+Teste 3 - comando "ping 192.168.1.1" (ping para dispositivo em outra sub-rede)
+
+Demonstração prévia de sub-redes distintas:
+Host local: IP 172.22.72.78 com máscara 255.255.255.0 (/24).
+Rede local: 172.22.72.0/24 (faixa de hosts: 172.22.72.1 a 172.22.72.254).
+Host de destino: IP 192.168.1.1 com máscara /24 pertenceria à rede 192.168.1.0/24.
+Como os identificadores de rede (NetID) são diferentes (172.22.72.0 != 192.168.1.0), o computador determina que a entrega deve ser indireta, enviando os pacotes ao Gateway Padrão.
 
 a) Houve resolução de endereço pelo protocolo ARP? Para qual endereço IP?
-R: não houve, para o 192.168.1.1
+R: 
+Não houve resolução ARP para o IP 192.168.1.1.
+O protocolo ARP opera exclusivamente no domínio de broadcast da rede local.
+Computadores nunca disparam ARP buscando o MAC de um endereço IP pertencente a outra sub-rede.
+Como o MAC do gateway já estava no cache ARP, não houve emissão de ARP.
 
 b) Quais eram os endereços de destino na camada física (Ethernet/MAC) e na camada lógica (IP) do pacote enviado? 
-R: 
-IP = 192.168.1.1
-Ethernet/MAC = 16-cb-8c-7c-80-78
+R:
+Camada Lógica (IP de Destino): 192.168.1.1 (o destinatário final do pacote).
+Camada Física (MAC de Destino): 16-cb-8c-7c-80-78 (o endereço físico da interface do Gateway Padrão).
 
 c) Consultando a tabela ARP, a quem pertenciam os endereços indicados no item anterior? 
 R: 
-O endereço IP pertencia ao host de destino localizado na outra sub-rede.
-O endereço MAC pertencia ao Gateway Padrão da nossa rede (172.22.72.1), que atua como a saída obrigatória para o tráfego destinado a outras redes.
+O endereço IP pertencia ao host final de destino localizado na rede remota.
+O endereço MAC pertencia ao Gateway Padrão (172.22.72.1), responsável por receber o quadro na camada de enlace, desencapsulá-lo e roteá-lo para fora da rede local.
 
 d) Houve sucesso na resposta ao pacote?
-R: Não, os 4 foram perdidos
+R: Não. Ocorreu 100% de perda (4 pacotes enviados e 0 recebidos), com a mensagem "Esgotado o tempo limite do pedido", pois o endereço de destino não era alcançável a partir da rota externa ou não respondeu a requisições ICMP.
 
-Teste 4: ping www.ufsm.br
+==================================================
+
+Teste 4 - comando "ping www.ufsm.br" (ping utilizando nome de dominio)
 
 a) Como iniciou a transação? Qual protocolo apareceu primeiro na captura? 
-R: Buscando o endereço IP do dominio, protocolo DNS
+R: 
+A transação iniciou com o protocolo DNS.
+Antes de enviar qualquer pacote ICMP, o computador precisou resolver o nome de domínio "www.ufsm.br" enviando consultas (queries) do tipo A (para IPv4) e AAAA (para IPv6).
 
 b) Para qual endereço IP foi gerado o ping? 
-R: 2804:1f38:0:30::1950
+R: 
+Foi gerado para o endereço IPv6 2804:1f38:0:30::1950.
+O sistema operacional deu prioridade a pilha IPv6 nativa sobre a resposta IPv4 (200.18.47.118).
 
 c) Como o computador "descobre" esse endereço? Identifique na captura os pacotes de consulta e resposta. 
-R: O computador descobre enviando um pacote de consulta DNS (Standard Query) direcionado ao Servidor DNS configurado no ipconfig (por exemplo, 2804:1f38:2001:a0::10 ou 172.22.34.2).
-O servidor responde com um pacote de resposta DNS (Standard Query Response) contendo o registro correspondente com o endereço IP de destino.
+R: 
+O computador descobre enviando um pacote "Standard Query" direcionado ao servidor DNS configurado na interface (2804:1f38:2001:a0::10).
+O servidor processa e retorna um pacote "Standard Query Response":
+Consulta: Identificada na captura (Transaction ID 0x9b3d) requisitando registro AAAA de www.ufsm.br.
+Resposta: Registrada no Frame 28 (comprovada na captura "RbP4.PNG"), onde o servidor responde com: "www.ufsm.br: type AAAA, addr 2804:1f38:0:30::1950".
 
 d) Houve sucesso no teste? Em caso afirmativo, quanto tempo levou a resposta? 
-R: Sim, 1ms
+R: Sim, houve 100% de sucesso no teste (0% de perda). O tempo de resposta foi de 1 ms (mínimo, máximo e média iguais a 1 ms).
 
 e) Examine todos os endereços conhecidos atualmente com o comando "ipconfig /displaydns" e comente o resultado.
-R: 
-Apareceu o cache DNS local do sistema operacional Windows e informações importantes (nome do registro, tempo de vida,comprimento dos dados,seção e registro).
-Ele lista todos os domínios recentemente acessados pelo computador (como sites, serviços de telemetria, APIs, etc.).
-
-Nome do registro, o tipo - A(ipv4) ou AAAA(IPv6).
-Tempo de vida restante (TTL) em segundos e o endereço IP associado a cada um, permitindo que o computador acesse esses endereços rapidamente sem precisar consultar um servidor DNS externo novamente de imediato.
+R:
+O comando exibe a tabela de cache DNS mantida pelo resolver do Windows. No resultado (conforme tela "ReP4.PNG"), constam as entradas recentemente consultadas para "www.ufsm.br", incluindo o Registro A (IPv4 200.18.47.118) e o Registro AAAA (IPv6 2804:1f38:0:30::1950), acompanhados de seus tempos de vida restantes (TTL).
+Isso demonstra que as próximas requisições a esse domínio serão respondidas instantaneamente a partir da memória local, evitando tráfego repetido na rede até que o TTL expire.
