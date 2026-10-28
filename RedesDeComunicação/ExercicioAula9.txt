@@ -1,0 +1,46 @@
+Atividade 1 -
+
+1) Por que se afirma que, em uma rede industrial, “desempenho é diferente de taxa de transmissão de dados”? Dê um exemplo concreto.
+R: Pois ela é focada na velocidade da transmissão, e não volume de dados transmitidos (como uma rede doméstica por exemplo)
+
+2) Por que uma rede industrial não pode tolerar colisões? Relacione com a comparação Token Ring x Ethernet vista na Aula 6.
+R: 
+Não se pode tolerar colisões nem lentidão no caso de muitos dispositivos estarem se comunicando simultaneamente pois essas aplicações geralmente envolvem sensibilidade ao atraso de dados.
+Assim como para redes domesticas a Ethernet "vence", no uso industrial eliminar colisões por acesso ordenado é a solução.
+
+3) Explique a arquitetura mestre/escravo e por que ela é adotada em redes industriais.
+R:
+Mestre — comanda a rede enviando pacotes endereçados aos dispositivos, que devem responder com leituras ou atuar sob comando.
+Escravos — recebem comandos e só respondem quando endereçados.
+pois ela otimiza a transferencia de dados
+
+4) Na pirâmide de níveis, por que os níveis 4 e 5 usam Ethernet e TCP/IP, enquanto o nível 1 usa Fieldbus, HART ou Profibus?
+R: Pois essa distribuição é de acordo com o uso e também a complexidade necessária 
+
+5) Cite três motivações para usar uma rede industrial em vez de condutores dedicados ponto-a-ponto até o CLP
+R: Redução da quantidade de cabos, centralização em torno de dispositivos programáveis (CLPs), facilidade de manutenção e diagnóstico.
+
+Atividade 2 -
+
+1) Compare RS-232 e RS-485 quanto a: tipo de sinalização, topologia, número máximo de dispositivos e distância máxima.
+R: 
+A sinalização do RS-485 é feita por pulsos de tensão, e o RS-232 por níveis de tensão
+A topologia do RS-232 é ponto-a-ponto, e a RS-485 é por barramento.
+Numero máximo de dispositivos do RS-232 é somente 2 (computador e equipamento), enquanto o RS-485 suporta até 32 dispositivos por segmento
+Distancia máxima do RS-232 é de 15m, enquanto o RS-485 é de 1200m
+
+2) Em um barramento RS-485, mede-se Voa −Vob = −350 mV. Qual o estado lógico? E se a medida fosse +50 mV? E +300 mV?
+R:
+−350 mV - Estado logico alto (OFF) - (-350) < (-200)
++50 mV - Estado logico dado como "sem transmissão" - (-350) < (-200)
++300 mV - Estado logico baixo (ON) - (300) > (200)
+
+3) A rede CAN tem múltiplos mestres e tempos de latência garantidos. Por que essas duas características são particularmente importantes em um automóvel?
+R: A combinação de múltiplos mestres e latência garantida garante confiabilidade, previsibilidade e segurança pois mesmo que um nó falhe, outro assuma a comunicação sem atrasos fazendo com que as mensagens seguem o cronograma esperado, mantendo a sincronia entre todos os sistemas.
+
+4) Por que um conversor USB–RS-232 barato pode não funcionar com um dispositivo industrial, mesmo funcionando com um microcontrolador de bancada?
+R: O motivo é econômico, pois muitos conversores baratos entregam apenas níveis TTL (0–5 V) no lugar da excursão de ±25 V. Com um microcontrolador de bancada isso funciona, com um equipamento industrial que espera a excursão completa, a comunicação simplesmente não se estabelece
+
+5) O que é um gateway em uma rede industrial e por que ele é necessário? Relacione com a pirâmide de níveis.
+R: Um gateway industrial é um dispositivo que atua como uma ponte de comunicação entre redes e protocolos diferentes (Profibus, EtherNet/IP, CAN),
+sendo necessário para integrar sensores, CLPs e máquinas aos sistemas de supervisão e gestão presentes nos níveis superiores da pirâmide de automação.
