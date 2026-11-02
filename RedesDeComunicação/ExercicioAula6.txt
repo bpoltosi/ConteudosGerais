@@ -1,15 +1,40 @@
-Atividade 1:
+Exercicio 1 - Aula 6
+1 Um enlace usa fibra OM2 (500 MHz·km) e precisa cobrir 2 km. Qual a largura de banda máxima suportada nesse
+comprimento?
+R: 250 MHz.
 
-1) 250Mhz.
-2) OM3 (1500MHz km) e OM4 (3500MHz km) atendem, porem OM3 seria a melhor custo beneficio.
-3) Por cont da dispersão que acontece em maior intensidade conforme o tamanho do núcleo aumenta.
-4) Menor atenuação por espalhamento de Rayleigh.
-5) Fornecer resistencia a tração, por conta da fragilidade das fibras de vidro.
+2 Um sinal precisa de 1000 MHz de largura de banda em um enlace de 1 km. Das categorias OM1 (200), OM2
+(500), OM3 (1500) e OM4 (3500 MHz·km), quais atendem? Qual seria a melhor escolha (menor custo que ainda
+atenda)?
+R: A melhor opção seria a MMF OM3.
 
-Atividade 2:
+3 Por que o produto banda x distância da MMF é limitado em comparação à SMF?
+R: Pois tem multiplas replicas do sinal "conflitando" em diferentes caminhos e em diferentes tempos.
 
-1) 1000Base-SX, por suportar a distancia de 550m sem necessidade de repetidores e oferecer imunidade a interfeencias eletromagnéticas.
-2) Não, a tecnologia adequada seria a Fibramonomodo (SMF) 10GBase-LR, que suporta enlaces de até 10km.
-3) Por conta principalmente do seu custo elevado e alta complexidade, alem de que a tecnologia Ethernet eliminou as colisões de dados e manteve a simplicidade do protocolo.
-4) Taxa de transmissão e largura de banda necessaria, alcance geografico, custo e disponibilidade no mercado.
-5) Cabeamento de alta qualidade permite que o protocolo seja mais simples e direto, pois o meio fisico introduz pouco ruido, atenuacao ou interferencia. Enquanto no cabeamento de baixa qualidade ou meios ruidosos exigem protocolos extremamente complexos para compensar as deficiencias e limitacoes do meio fisico.
+4 Por que a fibra óptica usa luz infravermelha em vez de luz visível?
+R: Pela baixa atenuacao por conta do comprimento de onda (850 nm e 1650 nm).
+
+5 Qual a função da camada de aramida (Kevlar) em um cabo óptico, e por que ela é mais crítica nesse cabo do que
+em um cabo metálico?
+R: Pois o cabo é muito sensivel a quebras e trações, e a camada de aramida protege exatamente desses danos e deformações.
+
+
+Exercicio 1 - Aula 6
+1 Uma empresa precisa interligar dois prédios distantes 550 m, com taxa de 1 Gbps. Compare usar fibra multimodo
+(1000BASE-SX) com usar par trançado (1000BASE-T, Cat5e). Qual seria a melhor escolha, e por quê?
+R: 
+BaseT: 1Gbit/s -> 100m
+BaseSX: 
+
+2 Repita a análise anterior para um enlace de 3 km a 10 Gbps. A fibra multimodo ainda é suficiente? Qual
+tecnologia atenderia?
+R:
+
+3 Por que a Token Ring, apesar de eliminar colisões, foi amplamente substituída pela Ethernet no mercado?
+R:
+
+4 Cite três dos critérios usados na seleção de um protocolo de rede, segundo esta aula.
+R:
+
+5 O que se entende pela “relação inversa” entre protocolo e cabeamento discutida nesta seção?
+R:
